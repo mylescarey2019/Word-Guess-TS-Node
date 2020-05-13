@@ -13,7 +13,11 @@ const inquirer = __importStar(require("inquirer"));
 //const { Letter } = require('./letter.js')
 const letter_1 = require("./letter");
 let myString = new letter_1.Letter('Q');
-console.log(`my string is: ${myString.letter}`);
+console.log(`my Letter.letter is: ${myString.letter}`);
+console.log(`my Letter.isKnown is: ${myString.isKnown}`);
+myString.isKnown = true;
+console.log(`my Letter.letter is: ${myString.letter}`);
+console.log(`my Letter.isKnown is: ${myString.isKnown}`);
 inquirer.prompt([
     {
         name: "letterGuess",

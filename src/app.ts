@@ -8,7 +8,11 @@ import { Letter } from './letter';
  
 
 let myString = new Letter('Q');
-console.log(`my string is: ${myString.letter}`);
+console.log(`my Letter.letter is: ${myString.letter}`);
+console.log(`my Letter.isKnown is: ${myString.isKnown}`);
+myString.isKnown = true;
+console.log(`my Letter.letter is: ${myString.letter}`);
+console.log(`my Letter.isKnown is: ${myString.isKnown}`);
 
 inquirer.prompt([
   {
