@@ -7,6 +7,8 @@ import * as inquirer from 'inquirer';
 import { Letter } from './letter';
 import { Word } from './word';
  
+//export enum GameState { KeepGuessing, NextWord };
+export type GameState = 'KeepGuessing' | 'GoToNextWord';
 
 let myString = new Letter('Q');
 console.log(`my Letter.letter is: ${myString.letter}`);
@@ -16,10 +18,23 @@ console.log(`my Letter.letter is: ${myString.letter}`);
 console.log(`my Letter.isKnown is: ${myString.isKnown}`);
 
 let myWord = new Word('Milo The Cat');
-myWord.showWordLetters();
+if (myWord.gameState === 'KeepGuessing') {
+//if (myWord.gameState === 'GameState.KeepGuessing') {
+  console.log(`Found it to be equal to ${myWord.gameState}`)
+} else {
+  console.log(`it is equal to ${myWord.gameState}`)
+} 
 
+myWord.showWordLetters();
+ 
 console.log(`puzzle state is: ${myWord.getDisplayableWord()}`);
 myWord.updateWord('z');
+if (myWord.gameState === 'KeepGuessing') {
+//if (myWord.gameState === GameState.KeepGuessing) {
+  console.log(`Found it to be equal to KeepGuessing`)
+} else {
+  console.log(`it is equal to next word ${myWord.gameState}`)
+} 
 console.log(`puzzle state is: ${myWord.getDisplayableWord()}`);
 myWord.updateWord('t');
 console.log(`puzzle state is: ${myWord.getDisplayableWord()}`);

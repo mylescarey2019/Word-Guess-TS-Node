@@ -9,6 +9,9 @@ class Word {
         // taking word which is a string, iterating over it calling
         // for new Letter class object for each character in the string
         this.letters = Array.from(word, (char) => new letter_js_1.Letter(char));
+        // temp location for this... move to game class when it is created
+        this.gameState = 'GoToNextWord';
+        //this.gameState = GameState.NextWord;
     }
     // update the word's letters following a guess attempt
     updateWord(guessedLetter) {
@@ -17,6 +20,9 @@ class Word {
         //  this.letters.map(char => char.isKnown = guessedLetter);
         console.log(`updateWord: ${guessedLetter}`);
         this.letters.map((char) => char.guessLetter(guessedLetter));
+        // temp location for this... move to game class when it is created
+        this.gameState = 'KeepGuessing';
+        //this.gameState = GameState.KeepGuessing;
     }
     // return formatted string ready for use on the terminal
     // has 2 spaces between letters and 4 spaces between words or initials
@@ -56,6 +62,7 @@ class Word {
     }
 }
 exports.Word = Word;
+//const myNewWord = new Word('Jello');
 // class for a president name in the puzzle
 // takes string parameter and creates property array of Letter objects
 // // import Letter class - Letter class contains a letter from a puzzle name

@@ -16,11 +16,11 @@ export class Letter {
     return this._isKnown ? this._letter : "-";
   }
 
-  get isKnown(): boolean {
+  get isKnown() {
     return this._isKnown;
   }
 
-  set isKnown(isGuessed: boolean) {
+  set isKnown(isGuessed) {
     this._isKnown = isGuessed;
   }
 

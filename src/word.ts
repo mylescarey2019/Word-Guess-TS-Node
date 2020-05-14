@@ -1,8 +1,10 @@
 // import Letter class - Letter class contains a letter from a puzzle name
 import { Letter } from "./letter.js";
+import { GameState } from "./app";
 export class Word {
-  private word: string;  // why is this saying never read?
+  word: string;  // why is this saying never read?
   private letters: Letter[];
+  gameState: GameState;
   constructor(word: string) {
     this.word = word; // raw string for the president name
 
@@ -10,6 +12,10 @@ export class Word {
     // taking word which is a string, iterating over it calling
     // for new Letter class object for each character in the string
     this.letters = Array.from(word, (char) => new Letter(char));
+    
+    // temp location for this... move to game class when it is created
+    this.gameState = 'GoToNextWord';
+    //this.gameState = GameState.NextWord;
   }
 
   // update the word's letters following a guess attempt
@@ -20,6 +26,10 @@ export class Word {
 
     console.log(`updateWord: ${guessedLetter}`);
     this.letters.map((char) => char.guessLetter(guessedLetter));
+
+    // temp location for this... move to game class when it is created
+    this.gameState = 'KeepGuessing';
+    //this.gameState = GameState.KeepGuessing;
   }
 
   // return formatted string ready for use on the terminal
@@ -47,13 +57,13 @@ export class Word {
   // needed for when user has exhausted all guesses for a word
   getSolvedDisplayableWord() {
     // force the isKnown property to true for all letters
-    this.letters.map((letter:Letter) => letter.forceReveal());  // is type needed on letter?
+    this.letters.map((letter) => letter.forceReveal());  // is type needed on letter?
     return this.getDisplayableWord();
   }
 
   // is the word solved
   isSolved() {
-    return this.letters.every((letter:Letter) => letter.isKnown);
+    return this.letters.every((letter) => letter.isKnown);
   }
 
   // diagnostic display of word's letters array
@@ -61,6 +71,9 @@ export class Word {
     console.log(this.letters);
   }
 }
+
+
+//const myNewWord = new Word('Jello');
 
 // class for a president name in the puzzle
 // takes string parameter and creates property array of Letter objects
