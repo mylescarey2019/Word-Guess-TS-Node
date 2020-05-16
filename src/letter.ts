@@ -3,6 +3,7 @@
 export class Letter {
   private _letter: string;
   private _isKnown: boolean;
+  
   constructor(
     letter: string,
     isKnown: boolean = letter === " " ? true : false

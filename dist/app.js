@@ -10,40 +10,75 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 //import inquirer from 'inquirer';
 const inquirer = __importStar(require("inquirer"));
-//const { Letter } = require('./letter.js')
-const letter_1 = require("./letter");
-const word_1 = require("./word");
-let myString = new letter_1.Letter('Q');
-console.log(`my Letter.letter is: ${myString.letter}`);
-console.log(`my Letter.isKnown is: ${myString.isKnown}`);
-myString.isKnown = true;
-console.log(`my Letter.letter is: ${myString.letter}`);
-console.log(`my Letter.isKnown is: ${myString.isKnown}`);
-let myWord = new word_1.Word('Milo The Cat');
-if (myWord.gameState === 'KeepGuessing') {
-    //if (myWord.gameState === 'GameState.KeepGuessing') {
-    console.log(`Found it to be equal to ${myWord.gameState}`);
+const wordpool_1 = require("./wordpool");
+// full word list for this theme
+const presidentNames = ["JAMES POLK", "JOHN ADAMS", "BARACK OBAMA"];
+// const presidentNames = ["GEORGE WASHINGTON","JOHN ADAMS","THOMAS JEFFERSON","JAMES MADISON","JAMES MONROE","JOHN QUINCY ADAMS","ANDREW JACKSON",
+// "MARTIN VAN BUREN","WILLIAM HARRISON",
+// "JOHN TYLER","JAMES POLK","ZACHARY TAYLOR","MILLARD FILLMORE","FRANKLIN PIERCE","JAMES BUCHANAN","ABRAHAM LINCOLN","ANDREW JOHNSON",
+// "ULYSSES S GRANT","RUTHERFORD B HAYES","JAMES GARFIELD", 
+// "CHESTER ARTHUR","GROVER CLEVELAND","BENJAMIN HARRISON","WILLIAM MCKINLEY","THEODORE ROOSEVELT","WILLIAM H TAFT",
+// "WOODROW WILSON", "WARREN HARDING","CALVIN COOLIDGE","HERBERT HOOVER",
+// "FRANKLIN D ROOSEVELT","HARRY S TRUMAN","DWIGHT EISENHOWER","JOHN F KENNEDY","LYNDON JOHNSON","RICHARD NIXON","GERALD FORD",
+// "JIMMY CARTER","RONALD REAGAN","GEORGE H W BUSH","BILL CLINTON","GEORGE W BUSH","BARACK OBAMA","DONALD TRUMP"];
+// instansiate WordPool object  
+const wordPool = new wordpool_1.WordPool(presidentNames);
+wordPool.showWords();
+console.log(`are there words in wordpool? ${wordPool.isWordRemaining()}`);
+wordPool.showWords();
+let myWord1 = wordPool.getWordFromPool();
+if (myWord1) {
+    console.log(`the first word is: ${myWord1.getDisplayableWord()}`);
+    wordPool.showWords();
+}
+myWord1 = wordPool.getWordFromPool();
+if (myWord1) {
+    console.log(`the 2nd word is: ${myWord1.getDisplayableWord()}`);
+    wordPool.showWords();
+}
+myWord1 = wordPool.getWordFromPool();
+if (myWord1) {
+    console.log(`the 3rd word is: ${myWord1.getDisplayableWord()}`);
+    wordPool.showWords();
+}
+myWord1 = wordPool.getWordFromPool();
+if (myWord1) {
+    console.log(`the 3rd word is: ${myWord1.getDisplayableWord()}`);
+    wordPool.showWords();
 }
 else {
-    console.log(`it is equal to ${myWord.gameState}`);
+    console.log('no more words....');
 }
-myWord.showWordLetters();
-console.log(`puzzle state is: ${myWord.getDisplayableWord()}`);
-myWord.updateWord('z');
-if (myWord.gameState === 'KeepGuessing') {
-    //if (myWord.gameState === GameState.KeepGuessing) {
-    console.log(`Found it to be equal to KeepGuessing`);
-}
-else {
-    console.log(`it is equal to next word ${myWord.gameState}`);
-}
-console.log(`puzzle state is: ${myWord.getDisplayableWord()}`);
-myWord.updateWord('t');
-console.log(`puzzle state is: ${myWord.getDisplayableWord()}`);
-myWord.updateWord('C');
-console.log(`puzzle state is: ${myWord.getDisplayableWord()}`);
-console.log(`puzzle is solved? ${myWord.isSolved()}`);
-console.log(`solved puzzle: ${myWord.getSolvedDisplayableWord()}`);
+;
+// let myString = new Letter('Q');
+// console.log(`my Letter.letter is: ${myString.letter}`);
+// console.log(`my Letter.isKnown is: ${myString.isKnown}`);
+// myString.isKnown = true;
+// console.log(`my Letter.letter is: ${myString.letter}`);
+// console.log(`my Letter.isKnown is: ${myString.isKnown}`);
+// let myWord = new Word('Milo The Cat');
+// if (myWord.gameState === 'KeepGuessing') {
+// //if (myWord.gameState === 'GameState.KeepGuessing') {
+//   console.log(`Found it to be equal to ${myWord.gameState}`)
+// } else {
+//   console.log(`it is equal to ${myWord.gameState}`)
+// } 
+// myWord.showWordLetters();
+// console.log(`puzzle state is: ${myWord.getDisplayableWord()}`);
+// myWord.updateWord('z');
+// if (myWord.gameState === 'KeepGuessing') {
+// //if (myWord.gameState === GameState.KeepGuessing) {
+//   console.log(`Found it to be equal to KeepGuessing`)
+// } else {
+//   console.log(`it is equal to next word ${myWord.gameState}`)
+// } 
+// console.log(`puzzle state is: ${myWord.getDisplayableWord()}`);
+// myWord.updateWord('t');
+// console.log(`puzzle state is: ${myWord.getDisplayableWord()}`);
+// myWord.updateWord('C');
+// console.log(`puzzle state is: ${myWord.getDisplayableWord()}`);
+// console.log(`puzzle is solved? ${myWord.isSolved()}`);
+// console.log(`solved puzzle: ${myWord.getSolvedDisplayableWord()}`);
 inquirer.prompt([
     {
         name: "letterGuess",

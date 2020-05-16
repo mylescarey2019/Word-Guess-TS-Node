@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 // import Letter class - Letter class contains a letter from a puzzle name
 const letter_js_1 = require("./letter.js");
+// class for a president name in the puzzle
+// takes string parameter and creates property array of Letter objects
 class Word {
     constructor(word) {
         this.word = word; // raw string for the president name

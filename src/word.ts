@@ -1,10 +1,14 @@
 // import Letter class - Letter class contains a letter from a puzzle name
 import { Letter } from "./letter.js";
 import { GameState } from "./app";
+
+// class for a president name in the puzzle
+// takes string parameter and creates property array of Letter objects
 export class Word {
-  word: string;  // why is this saying never read?
+  word: string;  // why is this saying never read if declared as private
   private letters: Letter[];
   gameState: GameState;
+
   constructor(word: string) {
     this.word = word; // raw string for the president name
 
