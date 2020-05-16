@@ -24,21 +24,20 @@ export class WordPool {
     }
   }
 
-    // returns whether any words objects remain in the word pool
-    isWordRemaining() {
-      return (this.words.length > 0) ? true : false;
-    }
+  // returns whether any words objects remain in the word pool
+  isWordRemaining() {
+    return (this.words.length > 0) ? true : false;
+  }
+
+  // remove and return next word object from pool
+
+  // problem area - how to eliminate the | undefined nature of this function
+  getWordFromPool() {
+    return this.words.pop();
+  } 
   
-    // remove and return next word object from pool
-
-    // problem area - how to eliminate the | undefined nature of this function
-    getWordFromPool() {
-      return this.words.pop();
-    } 
-    
-    // diagnostic word pool dump - show word string from each word object in pool
-    showWords(){
-      this.words.map((word,i) => console.log(`word ${i} is ${word.word}`));
-    }
-
+  // diagnostic word pool dump - show word string from each word object in pool
+  showWords(){
+    this.words.map((word,i) => console.log(`word ${i} is ${word.word}`));
+  }
 }

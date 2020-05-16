@@ -7,6 +7,7 @@ import * as inquirer from 'inquirer';
 import { Letter } from './letter';
 import { Word } from './word';
 import { WordPool } from './wordpool';
+import { Game } from './game';
  
 //export enum GameState { KeepGuessing, NextWord };
 export type GameState = 'KeepGuessing' | 'GoToNextWord';
@@ -23,40 +24,48 @@ const presidentNames = ["JAMES POLK","JOHN ADAMS","BARACK OBAMA"];
 // "FRANKLIN D ROOSEVELT","HARRY S TRUMAN","DWIGHT EISENHOWER","JOHN F KENNEDY","LYNDON JOHNSON","RICHARD NIXON","GERALD FORD",
 // "JIMMY CARTER","RONALD REAGAN","GEORGE H W BUSH","BILL CLINTON","GEORGE W BUSH","BARACK OBAMA","DONALD TRUMP"];
 
-// instansiate WordPool object  
-const wordPool = new WordPool(presidentNames);
+// // instansiate WordPool object  
+// const wordPool = new WordPool(presidentNames);
 
-wordPool.showWords();
-console.log(`are there words in wordpool? ${wordPool.isWordRemaining()}`)
+// // instansiate Game object  
+// const game = new Game(presidentNames);
+// game.wordPool.showWords();
 
-wordPool.showWords();
-let myWord1 = wordPool.getWordFromPool();
+// console.log(`are there words in wordpool? ${game.wordPool.isWordRemaining()}`)
 
-if (myWord1) {
-  console.log(`the first word is: ${myWord1.getDisplayableWord()}`);
-  wordPool.showWords();
-}
+// //game.wordPool.showWords();
+// //let myWord1 = game.wordPool.getWordFromPool();
 
-myWord1 = wordPool.getWordFromPool();
+// if (game.currentWord) {
+//   console.log(`the first name is=> ${game.currentWord.getDisplayableWord()} ... ${game.currentWord.word}`);
+// }
 
-if (myWord1) {
-  console.log(`the 2nd word is: ${myWord1.getDisplayableWord()}`);
-  wordPool.showWords();
-}
+// game.nextWord();
+// //game.wordPool.showWords();
 
-myWord1 = wordPool.getWordFromPool();
+// //myWord1 = game.wordPool.getWordFromPool();
 
-if (myWord1) {
-  console.log(`the 3rd word is: ${myWord1.getDisplayableWord()}`);
-  wordPool.showWords();
-}
+// if (game.currentWord) {
+//   console.log(`the second name is=> ${game.currentWord.getDisplayableWord()} ... ${game.currentWord.word}`);
+// }
 
-myWord1 = wordPool.getWordFromPool();
+// game.nextWord();
+// //game.wordPool.showWords();
 
-if (myWord1) {
-  console.log(`the 3rd word is: ${myWord1.getDisplayableWord()}`);
-  wordPool.showWords();
-} else { console.log('no more words....')};
+// //myWord1 = game.wordPool.getWordFromPool();
+
+// if (game.currentWord) {
+//   console.log(`the third name is=> ${game.currentWord.getDisplayableWord()} ... ${game.currentWord.word}`);
+// }
+
+// game.nextWord();
+// //game.wordPool.showWords();
+
+// //myWord1 = game.wordPool.getWordFromPool();
+
+// if (game.currentWord) {
+//   console.log(`the nth word is: ${game.currentWord.getDisplayableWord()}`);
+// } else { console.log(`Any more words ? .... ${game.wordPool.isWordRemaining()}`)};
 
 
 
@@ -96,14 +105,62 @@ if (myWord1) {
 
 
 
-inquirer.prompt([
-  {
-    name: "letterGuess",
-    message: "\nEnter a letter \'a\' through \'z\'\n"
-  }
-]).then((answer) => {
-  console.log(`entered was: ${answer.letterGuess[0]}`);
-});
+// inquirer.prompt([
+//   {
+//     name: "letterGuess",
+//     message: "\nEnter a letter \'a\' through \'z\'\n"
+//   }
+// ]).then((answer) => {
+//   console.log(`entered was: ${answer.letterGuess[0]}`);
+// });
 
+
+// instansiate game object  
+const game = new Game(presidentNames);
+
+// main recursive function - handles inquirer prompt and calling game object methods
+const playLetter = () => {
+  // check whether game has word to play with; if not then game over, return from recursion
+  if (game.hasWord)  { // the game has a word to play with - start/continue 
+    inquirer.prompt([
+      {
+        name: "letterGuess",
+        message: "\nEnter a letter \'a\' through \'z\'\n"
+      }
+ //   ]).then(function(answer){ // convert to fat arrow function
+    ]).then((answer) => {
+      // process the letter guess - igorning any keyed character after the first one
+      game.processGuess(answer.letterGuess[0]);
+      // game.state is one of the following:
+      //    KEEP GUESSING - keep looping by recursion
+      //    NEXT WORD     - get next word if one is available
+
+      // If word Solved or Out of Guesses - try to get a new word 
+      if (game.state === 'GoToNextWord') {
+        game.hasWord = false;  // don't know if game has any words left yet
+        if (game.wordPool.isWordRemaining()) {
+          game.nextWord();  // game.nextWord() will get the word and also toggle game.hasWord to true
+          console.log(`\nThe next name is [ ${game.currentWord!.getDisplayableWord()} ]`);
+          // if (game.currentWord) {
+          //   console.log(`\nThe next name is [ ${game.currentWord.getDisplayableWord()} ]`);
+          // }
+        }
+      }
+      // recursive call 
+      playLetter();
+    });
+  } 
+  else { // all names have been played
+    console.log('\nGame over - all 44 names have been played')
+    console.log(`\nThank you for playing, your final score is, Wins: ${game.wordsWon} Losses: ${game.wordsLost} `)
+  }
+} 
+   
+// -------------------------------------------------------------
+// Main program flow
+// -------------------------------------------------------------
+
+// this starts the letter request/response loop for the whole game
+playLetter();
 
 

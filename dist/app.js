@@ -10,7 +10,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 //import inquirer from 'inquirer';
 const inquirer = __importStar(require("inquirer"));
-const wordpool_1 = require("./wordpool");
+const game_1 = require("./game");
 // full word list for this theme
 const presidentNames = ["JAMES POLK", "JOHN ADAMS", "BARACK OBAMA"];
 // const presidentNames = ["GEORGE WASHINGTON","JOHN ADAMS","THOMAS JEFFERSON","JAMES MADISON","JAMES MONROE","JOHN QUINCY ADAMS","ANDREW JACKSON",
@@ -21,35 +21,35 @@ const presidentNames = ["JAMES POLK", "JOHN ADAMS", "BARACK OBAMA"];
 // "WOODROW WILSON", "WARREN HARDING","CALVIN COOLIDGE","HERBERT HOOVER",
 // "FRANKLIN D ROOSEVELT","HARRY S TRUMAN","DWIGHT EISENHOWER","JOHN F KENNEDY","LYNDON JOHNSON","RICHARD NIXON","GERALD FORD",
 // "JIMMY CARTER","RONALD REAGAN","GEORGE H W BUSH","BILL CLINTON","GEORGE W BUSH","BARACK OBAMA","DONALD TRUMP"];
-// instansiate WordPool object  
-const wordPool = new wordpool_1.WordPool(presidentNames);
-wordPool.showWords();
-console.log(`are there words in wordpool? ${wordPool.isWordRemaining()}`);
-wordPool.showWords();
-let myWord1 = wordPool.getWordFromPool();
-if (myWord1) {
-    console.log(`the first word is: ${myWord1.getDisplayableWord()}`);
-    wordPool.showWords();
-}
-myWord1 = wordPool.getWordFromPool();
-if (myWord1) {
-    console.log(`the 2nd word is: ${myWord1.getDisplayableWord()}`);
-    wordPool.showWords();
-}
-myWord1 = wordPool.getWordFromPool();
-if (myWord1) {
-    console.log(`the 3rd word is: ${myWord1.getDisplayableWord()}`);
-    wordPool.showWords();
-}
-myWord1 = wordPool.getWordFromPool();
-if (myWord1) {
-    console.log(`the 3rd word is: ${myWord1.getDisplayableWord()}`);
-    wordPool.showWords();
-}
-else {
-    console.log('no more words....');
-}
-;
+// // instansiate WordPool object  
+// const wordPool = new WordPool(presidentNames);
+// // instansiate Game object  
+// const game = new Game(presidentNames);
+// game.wordPool.showWords();
+// console.log(`are there words in wordpool? ${game.wordPool.isWordRemaining()}`)
+// //game.wordPool.showWords();
+// //let myWord1 = game.wordPool.getWordFromPool();
+// if (game.currentWord) {
+//   console.log(`the first name is=> ${game.currentWord.getDisplayableWord()} ... ${game.currentWord.word}`);
+// }
+// game.nextWord();
+// //game.wordPool.showWords();
+// //myWord1 = game.wordPool.getWordFromPool();
+// if (game.currentWord) {
+//   console.log(`the second name is=> ${game.currentWord.getDisplayableWord()} ... ${game.currentWord.word}`);
+// }
+// game.nextWord();
+// //game.wordPool.showWords();
+// //myWord1 = game.wordPool.getWordFromPool();
+// if (game.currentWord) {
+//   console.log(`the third name is=> ${game.currentWord.getDisplayableWord()} ... ${game.currentWord.word}`);
+// }
+// game.nextWord();
+// //game.wordPool.showWords();
+// //myWord1 = game.wordPool.getWordFromPool();
+// if (game.currentWord) {
+//   console.log(`the nth word is: ${game.currentWord.getDisplayableWord()}`);
+// } else { console.log(`Any more words ? .... ${game.wordPool.isWordRemaining()}`)};
 // let myString = new Letter('Q');
 // console.log(`my Letter.letter is: ${myString.letter}`);
 // console.log(`my Letter.isKnown is: ${myString.isKnown}`);
@@ -79,11 +79,54 @@ else {
 // console.log(`puzzle state is: ${myWord.getDisplayableWord()}`);
 // console.log(`puzzle is solved? ${myWord.isSolved()}`);
 // console.log(`solved puzzle: ${myWord.getSolvedDisplayableWord()}`);
-inquirer.prompt([
-    {
-        name: "letterGuess",
-        message: "\nEnter a letter \'a\' through \'z\'\n"
+// inquirer.prompt([
+//   {
+//     name: "letterGuess",
+//     message: "\nEnter a letter \'a\' through \'z\'\n"
+//   }
+// ]).then((answer) => {
+//   console.log(`entered was: ${answer.letterGuess[0]}`);
+// });
+// instansiate game object  
+const game = new game_1.Game(presidentNames);
+// main recursive function - handles inquirer prompt and calling game object methods
+const playLetter = () => {
+    // check whether game has word to play with; if not then game over, return from recursion
+    if (game.hasWord) { // the game has a word to play with - start/continue 
+        inquirer.prompt([
+            {
+                name: "letterGuess",
+                message: "\nEnter a letter \'a\' through \'z\'\n"
+            }
+            //   ]).then(function(answer){ // convert to fat arrow function
+        ]).then((answer) => {
+            // process the letter guess - igorning any keyed character after the first one
+            game.processGuess(answer.letterGuess[0]);
+            // game.state is one of the following:
+            //    KEEP GUESSING - keep looping by recursion
+            //    NEXT WORD     - get next word if one is available
+            // If word Solved or Out of Guesses - try to get a new word 
+            if (game.state === 'GoToNextWord') {
+                game.hasWord = false; // don't know if game has any words left yet
+                if (game.wordPool.isWordRemaining()) {
+                    game.nextWord(); // game.nextWord() will get the word and also toggle game.hasWord to true
+                    console.log(`\nThe next name is [ ${game.currentWord.getDisplayableWord()} ]`);
+                    // if (game.currentWord) {
+                    //   console.log(`\nThe next name is [ ${game.currentWord.getDisplayableWord()} ]`);
+                    // }
+                }
+            }
+            // recursive call 
+            playLetter();
+        });
     }
-]).then((answer) => {
-    console.log(`entered was: ${answer.letterGuess[0]}`);
-});
+    else { // all names have been played
+        console.log('\nGame over - all 44 names have been played');
+        console.log(`\nThank you for playing, your final score is, Wins: ${game.wordsWon} Losses: ${game.wordsLost} `);
+    }
+};
+// -------------------------------------------------------------
+// Main program flow
+// -------------------------------------------------------------
+// this starts the letter request/response loop for the whole game
+playLetter();

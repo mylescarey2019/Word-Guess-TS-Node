@@ -1,13 +1,13 @@
 // import Letter class - Letter class contains a letter from a puzzle name
 import { Letter } from "./letter.js";
-import { GameState } from "./app";
+    //import { GameState } from "./app";
 
 // class for a president name in the puzzle
 // takes string parameter and creates property array of Letter objects
 export class Word {
   word: string;  // why is this saying never read if declared as private
   private letters: Letter[];
-  gameState: GameState;
+      //gameState: GameState;
 
   constructor(word: string) {
     this.word = word; // raw string for the president name
@@ -16,10 +16,6 @@ export class Word {
     // taking word which is a string, iterating over it calling
     // for new Letter class object for each character in the string
     this.letters = Array.from(word, (char) => new Letter(char));
-    
-    // temp location for this... move to game class when it is created
-    this.gameState = 'GoToNextWord';
-    //this.gameState = GameState.NextWord;
   }
 
   // update the word's letters following a guess attempt
@@ -28,12 +24,8 @@ export class Word {
     // this will set isKnown to true if the letter === guessedLetter
     //  this.letters.map(char => char.isKnown = guessedLetter);
 
-    console.log(`updateWord: ${guessedLetter}`);
+    //console.log(`updateWord: ${guessedLetter}`);
     this.letters.map((char) => char.guessLetter(guessedLetter));
-
-    // temp location for this... move to game class when it is created
-    this.gameState = 'KeepGuessing';
-    //this.gameState = GameState.KeepGuessing;
   }
 
   // return formatted string ready for use on the terminal
