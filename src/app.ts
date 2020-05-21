@@ -13,7 +13,7 @@ import { Game } from './game';
 export type GameState = 'KeepGuessing' | 'GoToNextWord';
 
 // full word list for this theme
-const presidentNames = ["JAMES POLK","JOHN ADAMS","BARACK OBAMA"];
+const presidentNames = ["THOMAS JEFFERSON","RONALD REAGAN","BARACK OBAMA"];
 
 // const presidentNames = ["GEORGE WASHINGTON","JOHN ADAMS","THOMAS JEFFERSON","JAMES MADISON","JAMES MONROE","JOHN QUINCY ADAMS","ANDREW JACKSON",
 // "MARTIN VAN BUREN","WILLIAM HARRISON",
@@ -121,7 +121,8 @@ const game = new Game(presidentNames);
 // main recursive function - handles inquirer prompt and calling game object methods
 const playLetter = () => {
   // check whether game has word to play with; if not then game over, return from recursion
-  if (game.hasWord)  { // the game has a word to play with - start/continue 
+  //MRC* if (game.hasWord)  { // the game has a word to play with - start/continue 
+  if (game.currentWord) { // the game has word to play with - start/continue 
     inquirer.prompt([
       {
         name: "letterGuess",
@@ -132,20 +133,32 @@ const playLetter = () => {
       // process the letter guess - igorning any keyed character after the first one
       game.processGuess(answer.letterGuess[0]);
       // game.state is one of the following:
-      //    KEEP GUESSING - keep looping by recursion
-      //    NEXT WORD     - get next word if one is available
+      //    KeepGuessing - keep looping by recursion call to playLetter()
+      //    GoToNextWord - get next word if one is available
 
       // If word Solved or Out of Guesses - try to get a new word 
       if (game.state === 'GoToNextWord') {
-        game.hasWord = false;  // don't know if game has any words left yet
-        if (game.wordPool.isWordRemaining()) {
-          game.nextWord();  // game.nextWord() will get the word and also toggle game.hasWord to true
+        game.nextWord(); 
+        if (game.currentWord) {
           console.log(`\nThe next name is [ ${game.currentWord!.getDisplayableWord()} ]`);
-          // if (game.currentWord) {
-          //   console.log(`\nThe next name is [ ${game.currentWord.getDisplayableWord()} ]`);
-          // }
         }
       }
+      
+
+      //MRC*
+      // If word Solved or Out of Guesses - try to get a new word 
+      // if (game.state === 'GoToNextWord') {
+      //   game.hasWord = false;  // don't know if game has any words left yet
+      //   if (game.wordPool.isWordRemaining()) {
+      //     game.nextWord();  // game.nextWord() will get the word and also toggle game.hasWord to true
+      //     console.log(`\nThe next name is [ ${game.currentWord!.getDisplayableWord()} ]`);
+      //     // if (game.currentWord) {
+      //     //   console.log(`\nThe next name is [ ${game.currentWord.getDisplayableWord()} ]`);
+      //     // }
+      //   }
+      // }
+      //MRC*
+
       // recursive call 
       playLetter();
     });
