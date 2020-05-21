@@ -26,7 +26,6 @@ class WordPool {
         return (this.words.length > 0) ? true : false;
     }
     // remove and return next word object from pool
-    // problem area - how to eliminate the | undefined nature of this function
     getWordFromPool() {
         return this.words.pop();
     }

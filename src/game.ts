@@ -2,8 +2,8 @@
 import { WordPool } from "./wordpool.js";
 // import Word class - Word class consists of array of Letter objects
 import { Word } from "./word.js";
-// import GameState Union type
-import { GameState } from "./app";
+
+type GameState = 'KeepGuessing' | 'GoToNextWord';
 
 // class for game
 // this contains the core letter guessing logic, tracks game score, and draws down the word pool
@@ -11,16 +11,13 @@ export class Game {
   wordPool: WordPool;
   guesses: number;
   state: GameState;
-  currentWord: Word | undefined;
+  currentWord: Word | undefined; // can be undefined after last word has been used
   savedDisplayableWord: string;
   wordsWon: number;
   wordsLost: number;
-  hasWord: boolean;
   lettersGuessed: string[];
 
-
   constructor(puzzelWordList: string[]) {
-    //this.puzzelWordList = puzzelWordList;
     this.wordPool = new WordPool(puzzelWordList);   // instansiate wordPool object
     this.guesses = 6;
     this.state = 'GoToNextWord';
@@ -28,10 +25,9 @@ export class Game {
     this.savedDisplayableWord = ''; // used during guess comparison; set by nextWord method
     this.wordsWon = 0;
     this.wordsLost = 0;
-    this.lettersGuessed = []; // array of alphas that have already been guessed
-    this.hasWord = false; // a word has been retrieved by method getWordFromPool and is ready for use 
+    this.lettersGuessed = []; // array of alphas that have been guessed
     this.wordPool.showWords();  // diagnotic only - comment out after testing
-    this.nextWord();  // get the first word to play with, reset guesses and letters used
+    this.nextWord();  // get the first word to play with, resets guesses and letters used
     console.log('\nWelcome to Word Guess - US Presidential Edition');
     console.log('Solve each of the 44 president name puzzles, use keyboard A through Z');
     console.log('You lose the word if you accumlate 6 missed guesses, lets begin.');
@@ -45,15 +41,14 @@ export class Game {
     this.currentWord = this.wordPool.getWordFromPool();
     // record current diplayable word - to be used to determine if new letter guess unveiled any new letters
     if (this.currentWord) {
-      //this.wordPool.showWords();
-      this.hasWord = true;
       this.savedDisplayableWord = this.currentWord.getDisplayableWord();
     }
   }
 
   // core logic for handling letter guess and puzzle state 
   processGuess(letterGuess: string) {
-    // check to if guess key pressed valid letter or not
+
+    // helper function to check to if guess key pressed valid letter or not
     const validateGuess = (letter: string) => {
       let valid: boolean = true;
       let errorMsg: string = '';
@@ -76,7 +71,7 @@ export class Game {
     const [validGuess, guessErrorMsg] = validateGuess(letterGuess);
     if (validGuess) {
       //guess is a valid A-Z  - update the word object and used letter array
-      if (this.currentWord) { // should't be here if there isn't a current word
+      if (this.currentWord) {  
         this.currentWord.updateWord(letterGuess);
         this.lettersGuessed.push(letterGuess.toUpperCase());
       } 
@@ -85,7 +80,7 @@ export class Game {
       return console.log(guessErrorMsg);
     }
     
-    // display first line of guess result on console: hit or miss
+    // helper function to display first line of guess result on console: whether hit or miss
     const consoleGuessResult = (isHit: boolean, roundOver: boolean) => {
       let message = `\'${letterGuess.toUpperCase()}\'`;
       message += (isHit) ? ' is a Hit.' : ' is a Miss.';
@@ -114,8 +109,7 @@ export class Game {
       }
     }
 
-
-    // if applicable, display 2nd line of guess result on console : word solved or out of guesses
+    // helper function to, if applicable, display 2nd line of guess result on console : word solved or out of guesses
     const consoleWordEndResult = (isSolved: boolean, gameOver: boolean) => {
       let message = '';
       if (this.currentWord) {
@@ -126,6 +120,7 @@ export class Game {
       }
     }
 
+    // check to see if 2nd line of guess result needs to be displayed:  word solved or out of guesses
     const gameOver = !this.wordPool.isWordRemaining();
     if (wordIsSolved) {
       this.wordsWon++;

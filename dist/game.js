@@ -6,7 +6,6 @@ const wordpool_js_1 = require("./wordpool.js");
 // this contains the core letter guessing logic, tracks game score, and draws down the word pool
 class Game {
     constructor(puzzelWordList) {
-        //this.puzzelWordList = puzzelWordList;
         this.wordPool = new wordpool_js_1.WordPool(puzzelWordList); // instansiate wordPool object
         this.guesses = 6;
         this.state = 'GoToNextWord';
@@ -14,10 +13,9 @@ class Game {
         this.savedDisplayableWord = ''; // used during guess comparison; set by nextWord method
         this.wordsWon = 0;
         this.wordsLost = 0;
-        this.lettersGuessed = []; // array of alphas that have already been guessed
-        this.hasWord = false; // a word has been retrieved by method getWordFromPool and is ready for use 
+        this.lettersGuessed = []; // array of alphas that have been guessed
         this.wordPool.showWords(); // diagnotic only - comment out after testing
-        this.nextWord(); // get the first word to play with, reset guesses and letters used
+        this.nextWord(); // get the first word to play with, resets guesses and letters used
         console.log('\nWelcome to Word Guess - US Presidential Edition');
         console.log('Solve each of the 44 president name puzzles, use keyboard A through Z');
         console.log('You lose the word if you accumlate 6 missed guesses, lets begin.');
@@ -30,14 +28,12 @@ class Game {
         this.currentWord = this.wordPool.getWordFromPool();
         // record current diplayable word - to be used to determine if new letter guess unveiled any new letters
         if (this.currentWord) {
-            //this.wordPool.showWords();
-            this.hasWord = true;
             this.savedDisplayableWord = this.currentWord.getDisplayableWord();
         }
     }
     // core logic for handling letter guess and puzzle state 
     processGuess(letterGuess) {
-        // check to if guess key pressed valid letter or not
+        // helper function to check to if guess key pressed valid letter or not
         const validateGuess = (letter) => {
             let valid = true;
             let errorMsg = '';
@@ -60,7 +56,7 @@ class Game {
         const [validGuess, guessErrorMsg] = validateGuess(letterGuess);
         if (validGuess) {
             //guess is a valid A-Z  - update the word object and used letter array
-            if (this.currentWord) { // should't be here if there isn't a current word
+            if (this.currentWord) {
                 this.currentWord.updateWord(letterGuess);
                 this.lettersGuessed.push(letterGuess.toUpperCase());
             }
@@ -69,7 +65,7 @@ class Game {
             this.state = 'KeepGuessing';
             return console.log(guessErrorMsg);
         }
-        // display first line of guess result on console: hit or miss
+        // helper function to display first line of guess result on console: whether hit or miss
         const consoleGuessResult = (isHit, roundOver) => {
             let message = `\'${letterGuess.toUpperCase()}\'`;
             message += (isHit) ? ' is a Hit.' : ' is a Miss.';
@@ -96,7 +92,7 @@ class Game {
                 consoleGuessResult(isHit, this.guesses === 0);
             }
         }
-        // if applicable, display 2nd line of guess result on console : word solved or out of guesses
+        // helper function to, if applicable, display 2nd line of guess result on console : word solved or out of guesses
         const consoleWordEndResult = (isSolved, gameOver) => {
             let message = '';
             if (this.currentWord) {
@@ -106,6 +102,7 @@ class Game {
                 console.log(message);
             }
         };
+        // check to see if 2nd line of guess result needs to be displayed:  word solved or out of guesses
         const gameOver = !this.wordPool.isWordRemaining();
         if (wordIsSolved) {
             this.wordsWon++;
