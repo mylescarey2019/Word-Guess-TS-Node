@@ -6,7 +6,8 @@ const wordpool_js_1 = require("./wordpool.js");
 // this contains the core letter guessing logic, tracks game score, and draws down the word pool
 class Game {
     constructor(puzzelWordList) {
-        this.wordPool = new wordpool_js_1.WordPool(puzzelWordList); // instansiate wordPool object
+        this.puzzelWordList = puzzelWordList;
+        this.wordPool = new wordpool_js_1.WordPool(this.puzzelWordList); // instansiate wordPool object
         this.guesses = 6;
         this.state = 'GoToNextWord';
         this.currentWord; // word object

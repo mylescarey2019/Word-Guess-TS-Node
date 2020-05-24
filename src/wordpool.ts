@@ -4,11 +4,11 @@ import { Word } from "./word.js";
 // class for pool of word objects that are the game's president names
 // takes a array of names, used them to create array of word objects in this pool object
 export class WordPool {
-  puzzelWordList: string[];
-  words: Word[];
-  constructor(puzzelWordList: string[]) {
-    this.puzzelWordList = puzzelWordList;
-    this.words = []; // array of word objects
+  //private puzzelWordList: string[];
+  private words: Word[];
+
+  constructor(private readonly puzzelWordList: string[]) {
+    this.words = []; // array of word objectss
     this.buildAndShuffleWords();
   }
 
@@ -35,7 +35,7 @@ export class WordPool {
     return this.words.pop();
   } 
   
-  // diagnostic word pool dump - show word string from each word object in pool
+  // diagnostic word pool dump - show word (getter) string from each word object in pool
   showWords(){
     this.words.map((word,i) => console.log(`word ${i} is ${word.word}`));
   }

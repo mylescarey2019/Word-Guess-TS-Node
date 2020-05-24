@@ -8,17 +8,17 @@ type GameState = 'KeepGuessing' | 'GoToNextWord';
 // class for game
 // this contains the core letter guessing logic, tracks game score, and draws down the word pool
 export class Game {
-  wordPool: WordPool;
-  guesses: number;
-  state: GameState;
-  currentWord: Word | undefined; // can be undefined after last word has been used
-  savedDisplayableWord: string;
-  wordsWon: number;
-  wordsLost: number;
-  lettersGuessed: string[];
+  private wordPool: WordPool;
+  private guesses: number;
+  public state: GameState;
+  public currentWord: Word | undefined; // can be undefined after last word has been used
+  private savedDisplayableWord: string;
+  public wordsWon: number;
+  public wordsLost: number;
+  private lettersGuessed: string[];
 
-  constructor(puzzelWordList: string[]) {
-    this.wordPool = new WordPool(puzzelWordList);   // instansiate wordPool object
+  constructor(private puzzelWordList: string[]) {
+    this.wordPool = new WordPool(this.puzzelWordList);   // instansiate wordPool object
     this.guesses = 6;
     this.state = 'GoToNextWord';
     this.currentWord; // word object

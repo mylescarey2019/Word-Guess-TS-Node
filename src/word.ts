@@ -4,16 +4,13 @@ import { Letter } from "./letter.js";
 // class for a president name in the puzzle
 // takes string parameter and creates property array of Letter objects
 export class Word {
-  word: string;  // to-do: why is this saying never read if declared as private?
   private letters: Letter[];
 
-  constructor(word: string) {
-    this.word = word; // raw string for the president name
-
+  constructor(readonly word: string) {
     // building an array using Array.from method
     // taking word which is a string, iterating over it calling
     // for new Letter class object for each character in the string
-    this.letters = Array.from(word, (char) => new Letter(char));
+    this.letters = Array.from(this.word, (char) => new Letter(char));
   }
 
   // update the word's letters following a guess attempt

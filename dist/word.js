@@ -6,11 +6,11 @@ const letter_js_1 = require("./letter.js");
 // takes string parameter and creates property array of Letter objects
 class Word {
     constructor(word) {
-        this.word = word; // raw string for the president name
+        this.word = word;
         // building an array using Array.from method
         // taking word which is a string, iterating over it calling
         // for new Letter class object for each character in the string
-        this.letters = Array.from(word, (char) => new letter_js_1.Letter(char));
+        this.letters = Array.from(this.word, (char) => new letter_js_1.Letter(char));
     }
     // update the word's letters following a guess attempt
     // iterate over this.letters array and call guessLetter() for each letter

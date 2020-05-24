@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // class for letter in the puzzle's word
 // letter starts unknown to player unless it is a space between names or intials
 class Letter {
-    constructor(letter, isKnown = letter === " " ? true : false) {
-        this._letter = letter;
-        this._isKnown = isKnown;
+    constructor(_letter, _isKnown = _letter === " " ? true : false) {
+        this._letter = _letter;
+        this._isKnown = _isKnown;
     }
     // if letter is not known display it as an underscore
     get letter() {
@@ -17,7 +17,7 @@ class Letter {
     set isKnown(isGuessed) {
         this._isKnown = isGuessed;
     }
-    // a method 'setter' for _isKnown property
+    // a method acting as a 'setter' for _isKnown property
     guessLetter(letter) {
         this._isKnown =
             letter.toUpperCase() === this._letter.toUpperCase() ? true : this.isKnown;

@@ -7,7 +7,7 @@ const word_js_1 = require("./word.js");
 class WordPool {
     constructor(puzzelWordList) {
         this.puzzelWordList = puzzelWordList;
-        this.words = []; // array of word objects
+        this.words = []; // array of word objectss
         this.buildAndShuffleWords();
     }
     // randomly pull name from the puzzle list parameter, instansiate new word object for each - push into words array
@@ -29,7 +29,7 @@ class WordPool {
     getWordFromPool() {
         return this.words.pop();
     }
-    // diagnostic word pool dump - show word string from each word object in pool
+    // diagnostic word pool dump - show word (getter) string from each word object in pool
     showWords() {
         this.words.map((word, i) => console.log(`word ${i} is ${word.word}`));
     }
