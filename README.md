@@ -1,7 +1,6 @@
-# Word-Guess-TS-Node
-TypeScript Node version of Word Guess Game
+# Word-Guess 
 
-## Node version of Presidential themed name guess game
+## TypeScript / Node version of Presidential themed name guess game
 
 Written in TypeScript, utilizing: ES6, classes, Node.js, npm inquirer package
 
