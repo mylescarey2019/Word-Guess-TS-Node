@@ -2,26 +2,40 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 // import WordPool class - WordPool class consists of array of Word objects
 const wordpool_js_1 = require("./wordpool.js");
-// class for game
+// class for game - coding as a Singleton
 // this contains the core letter guessing logic, tracks game score, and draws down the word pool
 class Game {
     constructor(puzzelWordList) {
         this.puzzelWordList = puzzelWordList;
+        this.puzzelWordList = puzzelWordList;
         this.wordPool = new wordpool_js_1.WordPool(this.puzzelWordList); // instansiate wordPool object
         this.guesses = 6;
-        this.state = 'GoToNextWord';
-        this.currentWord; // word object
-        this.savedDisplayableWord = ''; // used during guess comparison; set by nextWord method
         this.wordsWon = 0;
         this.wordsLost = 0;
         this.lettersGuessed = []; // array of alphas that have been guessed
-        this.wordPool.showWords(); // diagnotic only - comment out after testing
-        this.nextWord(); // get the first word to play with, resets guesses and letters used
+        this.state = 'GoToNextWord';
+        this.savedDisplayableWord = '';
+        //this.nextWord();  // get the first word to play with, resets guesses and letters used
+        this.currentWord = this.wordPool.getWordFromPool(); // word object
+        if (this.currentWord) {
+            this.savedDisplayableWord = this.currentWord.getDisplayableWord(); // used during guess comparison; set by nextWord method
+        }
+        //this.wordPool.showWords();  // diagnotic only - comment out after testing
         console.log('\nWelcome to Word Guess - US Presidential Edition');
         console.log('Solve each of the 44 president name puzzles, use keyboard A through Z');
         console.log('You lose the word if you accumlate 6 missed guesses, lets begin.');
         console.log(`\nThe first name is [ ${this.savedDisplayableWord} ]`);
     }
+    // // reset guess count, clear used letter array, get next word object from pool
+    // nextWord() {
+    //   this.guesses = 6;
+    //   this.lettersGuessed.splice(0, this.lettersGuessed.length);
+    //   this.currentWord = this.wordPool.getWordFromPool();
+    //   // record current diplayable word - to be used to determine if new letter guess unveiled any new letters
+    //   if (this.currentWord) {
+    //     this.savedDisplayableWord = this.currentWord.getDisplayableWord();
+    //   }
+    // }
     // reset guess count, clear used letter array, get next word object from pool
     nextWord() {
         this.guesses = 6;

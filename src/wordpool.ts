@@ -30,7 +30,6 @@ export class WordPool {
   }
 
   // remove and return next word object from pool
-
   getWordFromPool() {
     return this.words.pop();
   } 

@@ -44,7 +44,7 @@ const playLetter = () => {
           game.nextWord();
           if (game.currentWord) {
             console.log(
-              `\nThe next name is [ ${game.currentWord!.getDisplayableWord()} ]`
+              `\nThe next name is [ ${game.currentWord.getDisplayableWord()} ]`
             );
           }
         }

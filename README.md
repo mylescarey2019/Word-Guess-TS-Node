@@ -2,7 +2,7 @@
 
 ## TypeScript / Node version of Presidential themed name guess game
 
-Written in TypeScript, utilizing: ES6, classes, Node.js, npm inquirer package
+Written in TypeScript, utilizing: ES6, classes, OOP patterns, Node.js, npm inquirer package
 
 ## Description
 
