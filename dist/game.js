@@ -2,6 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 // import WordPool class - WordPool class consists of array of Word objects
 const wordpool_js_1 = require("./wordpool.js");
+//type GameState = 'KeepGuessing' | 'GoToNextWord';
+var GameState;
+(function (GameState) {
+    GameState[GameState["KeepGuessing"] = 0] = "KeepGuessing";
+    GameState[GameState["GoToNextWord"] = 1] = "GoToNextWord";
+})(GameState = exports.GameState || (exports.GameState = {}));
+;
 // class for game - coding as a Singleton
 // this contains the core letter guessing logic, tracks game score, and draws down the word pool
 class Game {
@@ -13,7 +20,8 @@ class Game {
         this.wordsWon = 0;
         this.wordsLost = 0;
         this.lettersGuessed = []; // array of alphas that have been guessed
-        this.state = 'GoToNextWord';
+        //this.state = 'GoToNextWord';
+        this.state = GameState.GoToNextWord;
         this.savedDisplayableWord = '';
         //this.nextWord();  // get the first word to play with, resets guesses and letters used
         this.currentWord = this.wordPool.getWordFromPool(); // word object
@@ -77,7 +85,8 @@ class Game {
             }
         }
         else {
-            this.state = 'KeepGuessing';
+            //this.state = 'KeepGuessing';
+            this.state = GameState.KeepGuessing;
             return console.log(guessErrorMsg);
         }
         // helper function to display first line of guess result on console: whether hit or miss
@@ -121,17 +130,20 @@ class Game {
         const gameOver = !this.wordPool.isWordRemaining();
         if (wordIsSolved) {
             this.wordsWon++;
-            this.state = 'GoToNextWord';
+            //this.state = 'GoToNextWord';
+            this.state = GameState.GoToNextWord;
             consoleWordEndResult(wordIsSolved, gameOver);
         }
         else { // not solved - see if out of guesses
             if (this.guesses === 0) {
                 this.wordsLost++;
-                this.state = 'GoToNextWord';
+                //this.state = 'GoToNextWord';
+                this.state = GameState.GoToNextWord;
                 consoleWordEndResult(wordIsSolved, gameOver);
             }
             else { // still have guesses remaining
-                this.state = 'KeepGuessing';
+                //this.state = 'KeepGuessing';
+                this.state = GameState.KeepGuessing;
             }
         }
     }

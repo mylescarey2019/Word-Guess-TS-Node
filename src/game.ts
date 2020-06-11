@@ -3,7 +3,8 @@ import { WordPool } from "./wordpool.js";
 // import Word class - Word class consists of array of Letter objects
 import { Word } from "./word.js";
 
-type GameState = 'KeepGuessing' | 'GoToNextWord';
+//type GameState = 'KeepGuessing' | 'GoToNextWord';
+export enum GameState { KeepGuessing, GoToNextWord, };
 
 // class for game - coding as a Singleton
 // this contains the core letter guessing logic, tracks game score, and draws down the word pool
@@ -24,7 +25,8 @@ export class Game {
     this.wordsWon = 0;
     this.wordsLost = 0;
     this.lettersGuessed = []; // array of alphas that have been guessed
-    this.state = 'GoToNextWord';
+    //this.state = 'GoToNextWord';
+    this.state = GameState.GoToNextWord;
     this.savedDisplayableWord = '';
 
     //this.nextWord();  // get the first word to play with, resets guesses and letters used
@@ -64,6 +66,7 @@ export class Game {
     }
   }
 
+
   // core logic for handling letter guess and puzzle state 
   processGuess(letterGuess: string) {
 
@@ -95,7 +98,8 @@ export class Game {
         this.lettersGuessed.push(letterGuess.toUpperCase());
       } 
     } else {
-      this.state = 'KeepGuessing';
+      //this.state = 'KeepGuessing';
+      this.state = GameState.KeepGuessing;
       return console.log(guessErrorMsg);
     }
     
@@ -143,17 +147,20 @@ export class Game {
     const gameOver = !this.wordPool.isWordRemaining();
     if (wordIsSolved) {
       this.wordsWon++;
-      this.state = 'GoToNextWord';
+      //this.state = 'GoToNextWord';
+      this.state = GameState.GoToNextWord;
       consoleWordEndResult(wordIsSolved,gameOver);
     }
     else { // not solved - see if out of guesses
       if (this.guesses === 0) {
         this.wordsLost++;
-        this.state = 'GoToNextWord';
+        //this.state = 'GoToNextWord';
+        this.state = GameState.GoToNextWord;
         consoleWordEndResult(wordIsSolved,gameOver);
       }
       else { // still have guesses remaining
-        this.state = 'KeepGuessing';
+        //this.state = 'KeepGuessing';
+        this.state = GameState.KeepGuessing;
       }
     }
   }

@@ -1,20 +1,20 @@
 import inquirer from "inquirer";
 //alternate import syntax
 //import * as inquirer from 'inquirer';
-import { Game } from "./game";
+import { Game, GameState } from "./game";
 
 // shortened test word list
-//const presidentNames = ["THOMAS JEFFERSON", "RONALD REAGAN", "BARACK OBAMA"];
+const presidentNames = ["THOMAS JEFFERSON", "RONALD REAGAN", "BARACK OBAMA"];
 
 // full word list
-const presidentNames = ["GEORGE WASHINGTON","JOHN ADAMS","THOMAS JEFFERSON","JAMES MADISON","JAMES MONROE","JOHN QUINCY ADAMS","ANDREW JACKSON",
-"MARTIN VAN BUREN","WILLIAM HARRISON",
-"JOHN TYLER","JAMES POLK","ZACHARY TAYLOR","MILLARD FILLMORE","FRANKLIN PIERCE","JAMES BUCHANAN","ABRAHAM LINCOLN","ANDREW JOHNSON",
-"ULYSSES S GRANT","RUTHERFORD B HAYES","JAMES GARFIELD",
-"CHESTER ARTHUR","GROVER CLEVELAND","BENJAMIN HARRISON","WILLIAM MCKINLEY","THEODORE ROOSEVELT","WILLIAM H TAFT",
-"WOODROW WILSON", "WARREN HARDING","CALVIN COOLIDGE","HERBERT HOOVER",
-"FRANKLIN D ROOSEVELT","HARRY S TRUMAN","DWIGHT EISENHOWER","JOHN F KENNEDY","LYNDON JOHNSON","RICHARD NIXON","GERALD FORD",
-"JIMMY CARTER","RONALD REAGAN","GEORGE H W BUSH","BILL CLINTON","GEORGE W BUSH","BARACK OBAMA","DONALD TRUMP"];
+// const presidentNames = ["GEORGE WASHINGTON","JOHN ADAMS","THOMAS JEFFERSON","JAMES MADISON","JAMES MONROE","JOHN QUINCY ADAMS","ANDREW JACKSON",
+// "MARTIN VAN BUREN","WILLIAM HARRISON",
+// "JOHN TYLER","JAMES POLK","ZACHARY TAYLOR","MILLARD FILLMORE","FRANKLIN PIERCE","JAMES BUCHANAN","ABRAHAM LINCOLN","ANDREW JOHNSON",
+// "ULYSSES S GRANT","RUTHERFORD B HAYES","JAMES GARFIELD",
+// "CHESTER ARTHUR","GROVER CLEVELAND","BENJAMIN HARRISON","WILLIAM MCKINLEY","THEODORE ROOSEVELT","WILLIAM H TAFT",
+// "WOODROW WILSON", "WARREN HARDING","CALVIN COOLIDGE","HERBERT HOOVER",
+// "FRANKLIN D ROOSEVELT","HARRY S TRUMAN","DWIGHT EISENHOWER","JOHN F KENNEDY","LYNDON JOHNSON","RICHARD NIXON","GERALD FORD",
+// "JIMMY CARTER","RONALD REAGAN","GEORGE H W BUSH","BILL CLINTON","GEORGE W BUSH","BARACK OBAMA","DONALD TRUMP"];
 
 // instansiate game object
 const game = new Game(presidentNames);
@@ -40,7 +40,8 @@ const playLetter = () => {
         // If word has been solved or player is out of guesses then get next word
         //    If all words have been used then game ends via next call to playLetter()
         // Else call playLetter() for another player letter guess
-        if (game.state === "GoToNextWord") {
+        //if (game.state === "GoToNextWord") {
+        if (game.state === GameState.GoToNextWord) {
           game.nextWord();
           if (game.currentWord) {
             console.log(
