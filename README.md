@@ -8,7 +8,14 @@ Written in TypeScript, utilizing: ES6, classes, OOP patterns, Node.js, npm inqui
 
 This node.js app has command line interface for playing a hangman style game using the US President names as a word set.
 
-The game format is 
+## TypeScript features used
+1. Core types: string, number, boolean, array, undefined
+2. Classes types, getters, setters, public and private properties
+3. union type, enum type, undefined type
+4. typescript type inference
+5. tsconfig.json, node module resolution
+
+## Game Format
 
 1.  User is presented with a random presidential name to guess showing letters as underscores initially
 2.  User guess letter via keyboard - results reveiled

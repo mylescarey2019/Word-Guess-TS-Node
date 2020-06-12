@@ -29,12 +29,14 @@ export class WordPool {
     return (this.words.length > 0) ? true : false;
   }
 
-  // remove and return next word object from pool
+  // remove and return next word object from pool, return undefined if empty
   getWordFromPool() {
-    return this.words.pop();
+    // explicit return of undefined if no words remaining in array
+    const nextWord = this.words.pop();
+    return (nextWord) ? nextWord : undefined;
   } 
   
-  // diagnostic word pool dump - show word (getter) string from each word object in pool
+  // diagnostic word pool dump - show word string from each word object in pool
   showWords(){
     this.words.map((word,i) => console.log(`word ${i} is ${word.word}`));
   }

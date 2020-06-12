@@ -4,7 +4,7 @@ export class Letter {
   constructor(
     private readonly _letter: string,
     private _isKnown: boolean = _letter === " " ? true : false
-  ) { }
+  ) {}
 
   // if letter is not known display it as an underscore
   get letter() {
@@ -13,10 +13,6 @@ export class Letter {
 
   get isKnown() {
     return this._isKnown;
-  }
-
-  set isKnown(isGuessed) {
-    this._isKnown = isGuessed;
   }
 
   // a method acting as a 'setter' for _isKnown property
@@ -30,4 +26,3 @@ export class Letter {
     this._isKnown = true;
   }
 }
-

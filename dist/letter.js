@@ -14,9 +14,6 @@ class Letter {
     get isKnown() {
         return this._isKnown;
     }
-    set isKnown(isGuessed) {
-        this._isKnown = isGuessed;
-    }
     // a method acting as a 'setter' for _isKnown property
     guessLetter(letter) {
         this._isKnown =

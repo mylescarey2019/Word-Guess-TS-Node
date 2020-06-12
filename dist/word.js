@@ -37,7 +37,7 @@ class Word {
                 return i < this.letters.length - 1 ? letter + "  " : letter;
             }
         })
-            .join("");
+            .join('');
     }
     // solve the word and return displayable version
     // needed for when user has exhausted all guesses for a word

@@ -38,7 +38,7 @@ export class Word {
           return i < this.letters.length - 1 ? letter + "  " : letter;
         }
       })
-      .join("");
+      .join('');
   }
 
   // solve the word and return displayable version
