@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 // import WordPool class - WordPool class consists of array of Word objects
+// import NextWord type - which is Word class object or undefined
 const wordpool_js_1 = require("./wordpool.js");
 var GameState;
 (function (GameState) {

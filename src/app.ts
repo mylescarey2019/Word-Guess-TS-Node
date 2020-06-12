@@ -1,4 +1,6 @@
+// import npm inquirer package for command-line-interface prompts
 import inquirer from "inquirer";
+// import Game class and GameState enum type
 import { Game, GameState } from "./game";
 
 // shortened test word list

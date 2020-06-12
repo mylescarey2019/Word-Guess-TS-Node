@@ -3,7 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// import npm inquirer package for command-line-interface prompts
 const inquirer_1 = __importDefault(require("inquirer"));
+// import Game class and GameState enum type
 const game_1 = require("./game");
 // shortened test word list
 //const presidentNames = ["THOMAS JEFFERSON", "RONALD REAGAN", "BARACK OBAMA"];

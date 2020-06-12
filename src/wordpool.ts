@@ -1,5 +1,6 @@
 // import Word class - Word class consists of array of Letter objects
 import { Word } from "./word.js";
+export type NextWord = Word | undefined;
 
 // class for pool of word objects that are the game's president names
 // takes a array of names, used them to create array of word objects in this pool object
@@ -30,7 +31,7 @@ export class WordPool {
   }
 
   // remove and return next word object from pool, return undefined if empty
-  getWordFromPool() {
+  getWordFromPool(): NextWord {
     // explicit return of undefined if no words remaining in array
     const nextWord = this.words.pop();
     return (nextWord) ? nextWord : undefined;

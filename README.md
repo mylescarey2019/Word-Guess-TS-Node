@@ -11,7 +11,7 @@ This node.js app has command line interface for playing a hangman style game usi
 ## TypeScript features used
 1. Core types: string, number, boolean, array
 2. Classes types, getters, setters, public and private properties
-3. union type, enum type, undefined type
+3. union type, alias type, enum type, undefined type
 4. typescript type inference
 5. tsconfig.json, node module resolution
 

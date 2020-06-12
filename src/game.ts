@@ -1,7 +1,6 @@
 // import WordPool class - WordPool class consists of array of Word objects
-import { WordPool } from "./wordpool.js";
-// import Word class - Word class consists of array of Letter objects
-import { Word } from "./word.js";
+// import NextWord type - which is Word class object or undefined
+import { WordPool, NextWord } from "./wordpool.js";
 
 export enum GameState { KeepGuessing, GoToNextWord, };
 
@@ -9,7 +8,8 @@ export enum GameState { KeepGuessing, GoToNextWord, };
 // this contains the core letter guessing logic, tracks game score, and draws down the word pool
 export class Game {
   private wordPool: WordPool;
-  public currentWord: Word | undefined; // can be undefined after last word has been used
+  //public currentWord: Word | undefined; // can be undefined after last word has been used
+  public currentWord: NextWord;  // can be Word class object or undefined after last word has been used
   private guesses: number;
   public state: GameState;
   private savedDisplayableWord: string;
