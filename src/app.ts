@@ -38,9 +38,8 @@ const playLetter = () => {
         //    GoToNextWord - get next word if one is available
 
         // If word has been solved or player is out of guesses then get next word
-        //    If all words have been used then game ends via next call to playLetter()
+        // If all words have been used then game ends via next call to playLetter()
         // Else call playLetter() for another player letter guess
-        //if (game.state === "GoToNextWord") {
         if (game.state === GameState.GoToNextWord) {
           game.nextWord();
           if (game.currentWord) {

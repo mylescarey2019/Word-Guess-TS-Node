@@ -73,7 +73,6 @@ class Game {
             }
         }
         else {
-            //this.state = 'KeepGuessing';
             this.state = GameState.KeepGuessing;
             return console.log(guessErrorMsg);
         }

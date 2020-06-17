@@ -8,7 +8,6 @@ export enum GameState { KeepGuessing, GoToNextWord, };
 // this contains the core letter guessing logic, tracks game score, and draws down the word pool
 export class Game {
   private wordPool: WordPool;
-  //public currentWord: Word | undefined; // can be undefined after last word has been used
   public currentWord: NextWord;  // can be Word class object or undefined after last word has been used
   private guesses: number;
   public state: GameState;
@@ -83,7 +82,6 @@ export class Game {
         this.lettersGuessed.push(letterGuess.toUpperCase());
       } 
     } else {
-      //this.state = 'KeepGuessing';
       this.state = GameState.KeepGuessing;
       return console.log(guessErrorMsg);
     }
